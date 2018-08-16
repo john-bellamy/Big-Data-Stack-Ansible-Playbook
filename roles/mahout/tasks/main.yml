@@ -1,0 +1,13 @@
+---
+
+- name: Copy Hadoop  to nodes
+  copy: src=../hadoop/files/{{mahout_version_gz}} dest={{install_path}}{{mahout_version_gz}}  
+  become: yes
+
+- name: Make hadoop directory
+  file: path=~/mahout state=directory
+  become: yes 
+
+- name: Untar Hadoop 
+  unarchive: src={{install_path}}{{mahout_version_gz}} dest=~/mahout mode=0750 copy=no 
+  become: yes

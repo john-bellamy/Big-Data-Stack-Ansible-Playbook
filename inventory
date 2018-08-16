@@ -1,0 +1,12 @@
+[master]
+129.114.110.56
+
+
+[data]
+129.114.110.45
+129.114.110.65
+
+[multi:children]
+
+master
+data

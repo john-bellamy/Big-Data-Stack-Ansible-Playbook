@@ -1,0 +1,21 @@
+---
+# vars file for hadoop
+hadoop_version_gz: hadoop-2.7.0.tar.gz
+maven_version_gz: apache-maven-3.3.9-bin.tar.gz
+
+hadoop_src: hadoop-2.7.0-src
+maven_src: apache-maven-3.3.9
+install_path: ~/
+java_gpgkey_id: EEA14886
+ubuntu_keyserver: hkp://keyserver.ubuntu.com:80
+
+map_reduce_file: ../roles/hadoop/hadoop_config/mapred-site.xml
+yarn_file: ../roles/hadoop/hadoop_config/yarn-site.xml
+hdfs_file: ../roles/hadoop/hadoop_config/hdfs-site.xml
+core_file: ../roles/hadoop/hadoop_config/core-site.xml
+slaves_file: ../roles/hadoop/hadoop_config/slaves
+hadoop_home: ~/hadoop/hadoop-2.7.0/etc/hadoop/
+
+
+
+

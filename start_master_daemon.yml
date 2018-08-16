@@ -1,0 +1,20 @@
+---
+- hosts: master
+  vars:
+    become: yes
+    become_method: sudo
+    become_user: ubuntu
+
+  tasks:
+  - name: copy master host file to master server
+    copy: src=../hadoop/files/masterhost dest=/root/hadoop/hadoop-2.7.0/etc/hadoop
+    become: yes
+ 
+  - name: start Hadoop daemon on master server
+    shell: /root/hadoop/hadoop-2.7.0/sbin/hadoop-daemon.sh --hosts masterhost --script hdfs start namenode  >/dev/null &
+    become: yes
+
+  - name: start Yarn daemon on master server
+    shell: /root/hadoop/hadoop-2.7.0/sbin/yarn-daemon.sh start resourcemanager
+    become: yes
+

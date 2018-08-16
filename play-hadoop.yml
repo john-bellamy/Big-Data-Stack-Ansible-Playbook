@@ -1,0 +1,55 @@
+---    
+- hosts: master
+  vars:
+    become: yes
+    become_method: root
+    become_user: cc
+    remote_user: cc
+
+  tasks:
+  - name: Set hostname for master
+    shell: echo jb-master > /etc/hostname
+    become: yes
+
+- hosts: data
+  vars:
+    become: yes
+    become_method: root
+    become_user: cc
+    remote_user: cc
+
+  tasks:
+  - name: Set hostname for data1
+    shell: echo jb-data-1 > /etc/hostname
+    become: yes
+
+  - name: Set hostname for data2
+    shell: echo jb-data-2 > /etc/hostname
+    become: yes
+
+  - name: Set hostname for data-3
+    shell: echo jb-data3 > /etc/hostname
+    become: yes
+
+- hosts: multi
+  vars:
+    become: yes
+    become_method: root
+    become_user: cc
+    remote_user: cc
+
+ tasks:
+  - name: Update /etc/hosts
+    copy: src={{host_file}} dest=/etc/hosts
+    become: yes
+
+  roles:
+    - hadoop
+       
+  
+
+
+
+
+
+

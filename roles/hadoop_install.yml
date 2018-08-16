@@ -1,0 +1,45 @@
+---
+- hosts: all
+  vars:
+    become: yes
+    become_method: root
+    become_user: ubuntu
+    remote_user: ubuntu
+    
+  tasks:
+
+  - include_vars: ../hadoop/vars/main.yml
+  
+  - name: Copy Hadoop  to nodes
+    copy: src=../hadoop/files/{{hadoop_version_gz}} dest={{install_path}}{{hadoop_version_gz}}  
+    become: yes
+
+  - name: Make hadoop directory
+    file: path=~/hadoop state=directory
+    become: yes 
+
+  - name: Untar Hadoop 
+    unarchive: src={{install_path}}{{hadoop_version_gz}} dest=~/hadoop mode=0750 copy=no 
+    become: yes
+
+  - name: Copy core-site configuration files to servers
+    copy: src={{ core_file }} dest={{ hadoop_home }}
+    become: yes
+#    copy: src={{ hdfs_file }} dest={{ hadoop_home}}
+
+  - name: Copy yarn-site configuration files to servers
+    copy: src={{ yarn_file }} dest={{ hadoop_home}}
+    become: yes
+
+  - name: Copy mapred-site configuration files to servers
+    copy: src={{ map_reduce_file }} dest={{ hadoop_home}}
+    become: yes
+
+  - name: Copy slaves configuration files to servers
+    copy: src={{ slaves_file }} dest={{ hadoop_home }}
+    become: yes
+    
+  - name: Copy hadoop env shell file to servers
+    copy: src=../hadoop/files/hadoop-env.sh dest=~/hadoop/hadoop-2.7.0/etc/hadoop/hadoop-env.sh
+    become: yes
+

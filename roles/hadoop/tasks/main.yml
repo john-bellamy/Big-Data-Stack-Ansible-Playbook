@@ -1,0 +1,40 @@
+---
+
+- name: Update repo
+  apt: upgrade=dist
+  become: yes  
+
+- name: Get java apt-key
+  command: apt-key adv --keyserver {{ubuntu_keyserver}} --recv {{java_gpgkey_id}} 
+  become: yes
+ 
+- name: get java repo
+  apt_repository: repo="ppa:webupd8team/java"
+  become: yes
+  
+- name: Agree to license 
+  shell: echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections
+
+- name: install java
+  apt: pkg="oracle-java8-installer" state=present 
+  become: yes    
+    
+- name: restart machine
+  shell: sleep 2 && shutdown -r now "Ansible updates triggered" async:1 poll:0 ignore_errors:true
+  become: yes
+
+- name: waiting for server to come back
+  local_action: wait_for host={{ inventory_hostname }} state=started delay=30 timeout=350
+
+- name: Copy Hadoop  to nodes
+  copy: src=../hadoop/files/{{hadoop_version_gz}} dest={{install_path}}{{hadoop_version_gz}}  
+  become: yes
+
+- name: Make hadoop directory
+  file: path=~/hadoop state=directory
+  become: yes 
+
+- name: Untar Hadoop 
+  unarchive: src={{install_path}}{{hadoop_version_gz}} dest=~/hadoop mode=0750 copy=no 
+  become: yes
+

@@ -1,0 +1,20 @@
+127.0.0.1       localhost
+
+
+# The following lines are desirable for IPv6 capable hosts
+::1     localhost       ip6-localhost   ip6-loopback
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+
+
+129.114.110.56  jb-master
+129.114.110.45  jb-data-1
+129.114.110.65  jb-data-2
+127.0.1.1       i136r.idp.iu.futuregrid.org
+127.0.1.1       jb-data-2.novalocal     jb-data-2
+127.0.1.1       jb-data-1.novalocal     jb-data-1
+127.0.1.1       jb-master.novalocal     jb-master
+
+
+
+

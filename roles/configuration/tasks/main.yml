@@ -1,0 +1,20 @@
+---
+- name: Copy core-site configuration files to servers
+  copy: src={{ core_file }} dest={{ hadoop_home }}
+  become: yes
+
+- name: Copy yarn-site configuration files to servers
+  copy: src={{ yarn_file }} dest={{ hadoop_home}}
+  become: yes
+
+- name: Copy mapred-site configuration files to servers
+  copy: src={{ map_reduce_file }} dest={{ hadoop_home}}
+  become: yes
+
+- name: Copy slaves configuration files to servers
+  copy: src={{ slaves_file }} dest={{ hadoop_home }}
+  become: yes
+    
+- name: Copy hadoop env shell file to servers
+  copy: src=../hadoop/common/vms/hadoop-env.sh dest=~/hadoop/hadoop-2.7.0/etc/hadoop/hadoop-env.sh
+  become: yes

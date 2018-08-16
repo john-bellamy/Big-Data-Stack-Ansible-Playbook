@@ -1,0 +1,18 @@
+---
+- hosts: data
+  vars:
+    become: yes
+    become_method: sudo
+    become_user: ubuntu
+
+
+
+  tasks:
+  - name: stop Hadoop daemon on data servers
+    shell: /root/hadoop/hadoop-2.7.0/sbin/hadoop-daemon.sh --script hdfs stop datanode
+    become: yes
+
+  - name: stop Yarn daemon on data servers
+    shell: /root/hadoop/hadoop-2.7.0/sbin/yarn-daemon.sh stop nodemanager
+    become: yes
+
